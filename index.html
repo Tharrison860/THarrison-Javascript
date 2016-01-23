@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>JavaScript Test</title>
+	
+	<script type="text/javascript" src="jquery.min.js"></script>
+	
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	
+	<style>
+	.thumbnail
+	{
+		background-color:#D9EDF6;
+		padding: 15px 15px 15px 15px;
+	}
+	.boxer{
+		margin-top: 3px;
+		width:270px;
+		height: 205px;
+		border: 1px solid grey;
+		overflow-y: scroll;
+	}
+	h5{ margin: 0;}
+	#space
+	{
+		margin-top: 15px;
+	}
+	#hot
+	{
+		background-color:#00FF00;
+		color:white;
+		border-radius:6px;
+		margin: 5px 5px 5px 3px;
+		font-weight: bold;
+		font-size: 1.3em;
+		padding-left: 5px;
+	}
+		#hot:hover
+	{
+		background-color:#009933;
+	}
+	#cold
+	{
+		background-color:#FF0000;
+		color:white;
+		border-radius:6px;
+		margin: 5px 5px 5px 3px;
+		font-weight: bold;
+		font-size: 1.3em;
+		padding-left: 5px;
+	}
+		#cold:hover
+	{
+		background-color:#660000;
+	}
+	#close {
+		float:right;
+		font-weight: bold;
+		font-size: 1.05em;
+		margin:-2px 9px 0 0 ;
+		}
+	</style>
+  </head>
+  <body>
+  
+		<div class="navbar navbar-default ">
+			<div class="navbar-header">
+				<div class="navbar-brand">Trevon Harrison JavaScript Test</div>
+			</div>
+		
+		</div>
+		
+		<div class="container contentContained" id="topContainer" >
+			<div class="row">
+				<div class="col-sm-6 col-md-4" id="topRow">
+				
+				<form class="thumbnail" id="termForm">
+				
+					<div class="form-group box">
+						<label>Term:</label>
+						<input id="write" type="text" class="form-control" name="term" />
+					</div>
+				
+					<div class="form-group">
+						<label>Type:</label>
+							<select id="select" class="form-control">
+								<option>Positive</option>
+								<option>Negative</option>
+							</select>
+					</div>
+				
+					<div class="form-group">
+						<input id="add" type="submit" class="btn btn-primary" value="Add Term" />
+					</div>
+				
+				</form>
+				
+			</div>
+			
+			<div id="green" class="col-sm-6 col-md-4">
+			  
+				<h5><b>Positive:</b></h5>
+				<div class="boxer" id="pos"></div>
+			  
+			 </div>
+			 <div class="col-sm-6 col-md-4">
+				
+				<h5><b>Negative:</b></h5>
+				<div class="boxer" id="Neg">
+				<ul id="nList">
+				
+				</ul>
+				</div>
+			  
+			 </div>
+	</div>
+</div>
+
+	
+		
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+	
+	<script>
+		
+		clear();
+		
+		document.getElementById("add").onclick=function(event) {
+				
+				event.preventDefault();
+			
+			if (document.getElementById("write").value.length < 1 || document.getElementById("write").value.length >=50 ){
+				
+				alert('Please Enter a Term that is less than 50 characters long');
+			
+			}else {
+				a();
+				
+			}
+		}
+		
+		function a(){
+		
+		if (document.getElementById("select").value=="Positive") {
+				
+				b();
+				clear();
+			
+			}else {
+			
+				c();
+				clear();
+						
+			}
+		
+		}
+		
+		function b(){
+					
+			var elInput=document.getElementById("write").value;
+		
+			var btnB=document.createElement("div");
+			
+			btnB.id='hot';
+			
+			var xIt= "x";
+					
+			document.getElementById("pos").appendChild(btnB);
+			
+			
+			btnB.innerHTML= elInput + "<span id='close' onclick='this.parentNode.remove()'>" + xIt +"</span>" ;
+			
+			
+			$(btnB).on("click", function(){
+				
+			$(this).children('span').remove();
+				
+			var fresh= $(btnB).text();
+				
+			$("#write").val(fresh);
+				
+			btnB.innerHTML= elInput + "<span id='close' onclick='this.parentNode.remove()'>" + xIt +"</span>" ;
+				
+		
+			});
+			
+		}
+		
+		function c(){
+			
+			var elInput=document.getElementById("write").value;
+		
+			var btnA=document.createElement("div");
+		
+			btnA.id= 'cold';
+		
+			document.getElementById("Neg").appendChild(btnA);
+		
+			btnA.innerHTML= elInput + "<span id='close' onclick='this.parentNode.remove()'>x</span>";
+
+	
+			
+			$(btnA).on("click", function(){
+			
+				$(this).children('span').remove();
+				
+				var fresh= $(btnA).text();
+				
+				$("#write").val(fresh);
+				
+				btnA.innerHTML= elInput + "<span id='close' onclick='this.parentNode.remove()'>x</span>";
+				
+			});
+			
+			
+
+		}
+		
+		function Order(a, b) {
+		     var A = a.toLowerCase();
+			
+			var B = b.toLowerCase();
+			
+			if (A < B){
+				return -1;
+			}else if (A > B){
+				return  1;
+			}else{
+				return 0;
+			}
+			    
+		}
+		
+		function clear(){
+		
+			$("#write").val("");
+			$("#select").val("Positive");
+			
+			                                         
+		}	
+		
+			
+	
+	</script>
+  </body>
